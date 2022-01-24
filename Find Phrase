@@ -1,0 +1,48 @@
+import os.path #https://www.geeksforgeeks.org/test-internet-speed-using-python/
+import datetime
+import threading
+import time
+
+
+#FINDS WORDS IN FILE AND SHOWS LINE NUMBER AND CONTENT
+def search(file, text_to_search_for=()):
+  if os.path.isfile(file) == True:
+    #OPENS FILE
+    with open(file, 'r') as f:
+        v = f.readlines()
+    #FINDS OUT HOW MANY LINES IN FILE AND ASSIGNS IT TO A VARIABLE
+    number_of_lines_in_file = len(v)
+    #iTERATES PER NUMBER OF LINES IN FILE
+    for i in range(0, number_of_lines_in_file):
+        with open(file, 'r') as o:
+           #PUTS CURRENT LINE IN A VARIABLE, i TELLS THE PROGRAM WHICH LINE TO PRINT
+           m = str(o.readlines()[i])
+           for z in text_to_search_for:
+             #CHECKS IF TEXT IS IN LINE
+             if z in m:
+              #THEN PRINTS IT
+              print(f"{file} Line {i + 1}: {m}")
+           #IF TEXT NOT IN LINE IT WILL SKIP
+           else:
+               pass
+  else:
+    print(f"{file} DOESNT EXIST!!!")
+
+draco = []
+
+#SPECIFY HOW MANY FILES YOU WANT TO SCAN
+file_count = int(input("How many files do you wanna scan?: "))
+
+#WILL PROMPT USER PER NUMBER OF FILES AND PUTS THEM IN A LIST
+for i in range(0,file_count):
+    file_name = input("Whats the file's name? ")
+    draco.append(file_name)
+
+#PARSES THROUGH LIST
+for file in draco:
+    #IF LIST ELEMENT IS EMPTY IT WILL SKIP THAT ITERATION
+    if file == '':
+        continue
+    # SENDS A TUPLE OF PHRASES FOR THE PROGRAM TO LOOK FOR IN THE FILE
+    search(f"{file}.txt",("SQL injection vulnerability", "exploit this SQL injection"
+                 ,'user aborted during detection phase',"the back-end DBMS is", "operating system", "web application technology", 'detected',))

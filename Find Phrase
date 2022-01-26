@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import os.path #https://www.geeksforgeeks.org/test-internet-speed-using-python/
 import datetime
 import threading

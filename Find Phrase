@@ -30,7 +30,8 @@ def search(file, text_to_search_for=()):
            #IF TEXT NOT IN LINE IT WILL SKIP
              else:
                 pass
-    print(number_of_times_found)
+     if len(number_of_times_found) < 1:
+        print("No phrases found.")
   except FileNotFoundError:
       print(f"File {file} DOESNT EXIST!!!")
 

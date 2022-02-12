@@ -3,7 +3,6 @@
 import datetime
 import threading
 import time
-import sys
 
 
 #FINDS WORDS IN FILE AND SHOWS LINE NUMBER AND CONTENT
@@ -63,7 +62,7 @@ while True:
 
     except FileNotFoundError:
         print(f"Wordlist {wordlist} DOESNT EXIST!!!")
-        #time.sleep(1)
+        
 
 #PARSES THROUGH LIST
 for file in draco:

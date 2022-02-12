@@ -1,17 +1,18 @@
 #!/bin/python3
 
-import os.path #https://www.geeksforgeeks.org/test-internet-speed-using-python/
 import datetime
 import threading
 import time
+import sys
 
 
-#########################VULNERABILTY CHECKER########################
 #FINDS WORDS IN FILE AND SHOWS LINE NUMBER AND CONTENT
 def search(file, text_to_search_for=()):
-  if os.path.isfile(file) == True:
+  number_of_times_found = []
+  #if os.path.isfile(file) == True:
+  try:
     #OPENS FILE
-    with open(file, 'r') as f:
+    with open(f"{file}", 'r') as f:
         v = f.readlines()
     #FINDS OUT HOW MANY LINES IN FILE AND ASSIGNS IT TO A VARIABLE
     number_of_lines_in_file = len(v)
@@ -24,33 +25,45 @@ def search(file, text_to_search_for=()):
              #CHECKS IF TEXT IS IN LINE
              if z in m:
               #THEN PRINTS IT
-              print(f"{file} Line {i + 1}: {m}")
+              print(f"{file} Line {i}: {m}")
+              number_of_times_found.append(i)
+              i += 1
            #IF TEXT NOT IN LINE IT WILL SKIP
-           else:
-               pass
-  else:
-    print(f"{file} DOESNT EXIST!!!")
+             else:
+                pass
+    print(number_of_times_found)
+  except FileNotFoundError:
+      print(f"File {file} DOESNT EXIST!!!")
 
 draco = []
 words = []
+while True:
+    #SPECIFY HOW MANY FILES YOU WANT TO SCAN
+    try:
+        file_count = int(input("How many files do you wanna scan?: "))
 
-#SPECIFY HOW MANY FILES YOU WANT TO SCAN
-file_count = int(input("How many files do you wanna scan?: "))
+        #WILL PROMPT USER PER NUMBER OF FILES AND PUTS THEM IN A LIST
+        for i in range(0,file_count):
+            file_name = input("Whats the file's name? ")
+            draco.append(file_name)
+        break
 
-#WILL PROMPT USER PER NUMBER OF FILES AND PUTS THEM IN A LIST
-for i in range(0,file_count):
-    file_name = input("Whats the file's name? ")
-    draco.append(file_name)
+    except ValueError:
+        print("Enter a valid number!!!")
 
-wordlist = input("Enter wordlist to look out for: ")
+while True:
+    wordlist = input("Enter wordlist to look out for: ")
+    try:
+        with open(f"{wordlist}", 'r') as f:
+            lists = f.readlines()
 
-with open(f"{wordlist}.txt", 'r') as f:
-    lists = f.readlines()
+            for i in lists:
+                words.append(i.strip())
+        break
 
-    for i in lists:
-        words.append(i.strip())
-
-print(lists)
+    except FileNotFoundError:
+        print(f"Wordlist {wordlist} DOESNT EXIST!!!")
+        #time.sleep(1)
 
 #PARSES THROUGH LIST
 for file in draco:
@@ -58,5 +71,6 @@ for file in draco:
     if file == '':
         continue
     # SENDS A TUPLE OF PHRASES FOR THE PROGRAM TO LOOK FOR IN THE FILE
-    search(f"{file}.txt", words)#,("SQL injection vulnerability", "exploit this SQL injection"
+    search(f"{file}", words)#,("SQL injection vulnerability", "exploit this SQL injection"
 #                 ,'user aborted during detection phase',"the back-end DBMS is", "operating system", "web application technology", 'detected','BAD'))
+
